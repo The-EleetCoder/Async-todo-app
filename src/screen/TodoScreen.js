@@ -2,6 +2,7 @@ import { StyleSheet, View, TextInput, FlatList } from "react-native";
 import React, { useState } from "react";
 import Button from "../components/Button";
 import TaskView from "../components/TaskView";
+import Fallback from "../components/Fallback";
 
 const TodoScreen = () => {
   const [todoText, setTodoText] = useState("");
@@ -58,6 +59,9 @@ const TodoScreen = () => {
       <Button onPress={isUpdating ? saveHandler : addHandler}>
         {isUpdating ? "SAVE" : "ADD"}
       </Button>
+
+      {/* Fallback */}
+      {todoArray.length === 0 && <Fallback />}
 
       {/* task view */}
       <FlatList
