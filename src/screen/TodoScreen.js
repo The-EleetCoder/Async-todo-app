@@ -98,7 +98,6 @@ const styles = StyleSheet.create({
     fontFamily: "open-sans-bold",
   },
   flatListContainer: {
-    height: Dimensions.get("window").height - 210,
-    borderRadius: 15,
+    height: Dimensions.get("window").height - 210
   },
 });
