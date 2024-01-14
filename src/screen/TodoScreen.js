@@ -6,6 +6,8 @@ import TaskView from "../components/TaskView";
 const TodoScreen = () => {
   const [todoText, setTodoText] = useState("");
 
+  const addHandler = () => {};
+
   const updateHandler = () => {};
 
   const deleteHandler = () => {};
@@ -51,7 +53,7 @@ const TodoScreen = () => {
       />
 
       {/* button */}
-      <Button>ADD</Button>
+      <Button onPress={addHandler}>ADD</Button>
 
       {/* task view */}
       <FlatList

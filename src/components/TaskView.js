@@ -8,7 +8,12 @@ const TaskView = ({ text, updateHandler, deleteHandler }) => {
       <Text style={styles.text}>{text}</Text>
       <View style={styles.iconContainer}>
         <Icon name="create" size={32} color="#005500" onPress={updateHandler} />
-        <Icon name="trash" size={32} color="#930000d8" onPress={deleteHandler} />
+        <Icon
+          name="trash"
+          size={32}
+          color="#930000d8"
+          onPress={deleteHandler}
+        />
       </View>
     </View>
   );
