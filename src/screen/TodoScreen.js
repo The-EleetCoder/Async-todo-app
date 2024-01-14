@@ -1,46 +1,48 @@
-import { StyleSheet, Text, View, TextInput, FlatList } from "react-native";
+import { StyleSheet, View, TextInput, FlatList } from "react-native";
 import React, { useState } from "react";
 import Button from "../components/Button";
 import TaskView from "../components/TaskView";
 
 const TodoScreen = () => {
   const [todoText, setTodoText] = useState("");
+  const [todoArray, setTodoArray] = useState([]);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [updateId, setUpdateId] = useState(null);
 
-  const addHandler = () => {};
+  // CREATE
+  const addHandler = () => {
+    setTodoArray([...todoArray, { id: Date.now().toString(), text: todoText }]);
+    setTodoText("");
+  };
 
-  const updateHandler = () => {};
+  // UPDATE & SAVE
+  const saveHandler = () => {
+    const filteredArray = todoArray.filter((item) => item.id !== updateId);
+    setTodoArray([...filteredArray, { id: updateId, text: todoText }]);
+    setTodoText("");
+    setIsUpdating(false);
+  };
+  const updateHandler = (item) => {
+    setIsUpdating(true);
+    setUpdateId(item.id);
+    setTodoText(item.text);
+  };
 
-  const deleteHandler = () => {};
+  // DELETE
+  const deleteHandler = (id) => {
+    const filteredArray = todoArray.filter((item) => item.id !== id);
+    setTodoArray(filteredArray);
+  };
 
   const renderItem = ({ item }) => {
     return (
       <TaskView
         text={item.text}
-        updateHandler={updateHandler}
-        deleteHandler={deleteHandler}
+        updateHandler={updateHandler.bind(this, item)}
+        deleteHandler={deleteHandler.bind(this, item.id)}
       />
     );
   };
-
-  // will remove this later
-  const dummyText = [
-    {
-      id: 1,
-      text: "Read a book 1",
-    },
-    {
-      id: 2,
-      text: "Read a book 2",
-    },
-    {
-      id: 3,
-      text: "Read a book 3",
-    },
-    {
-      id: 4,
-      text: "Read a book 4",
-    },
-  ];
 
   return (
     <View>
@@ -53,11 +55,13 @@ const TodoScreen = () => {
       />
 
       {/* button */}
-      <Button onPress={addHandler}>ADD</Button>
+      <Button onPress={isUpdating ? saveHandler : addHandler}>
+        {isUpdating ? "SAVE" : "ADD"}
+      </Button>
 
       {/* task view */}
       <FlatList
-        data={dummyText}
+        data={todoArray}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
