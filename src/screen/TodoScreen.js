@@ -1,8 +1,9 @@
-import { StyleSheet, View, TextInput, FlatList } from "react-native";
+import { StyleSheet, View, TextInput, FlatList, Alert } from "react-native";
 import React, { useState } from "react";
 import Button from "../components/Button";
 import TaskView from "../components/TaskView";
 import Fallback from "../components/Fallback";
+import { Dimensions } from "react-native";
 
 const TodoScreen = () => {
   const [todoText, setTodoText] = useState("");
@@ -12,6 +13,10 @@ const TodoScreen = () => {
 
   // CREATE
   const addHandler = () => {
+    if (todoText === "") {
+      Alert.alert("Note","Please enter a task!");
+      return;
+    };
     setTodoArray([...todoArray, { id: Date.now().toString(), text: todoText }]);
     setTodoText("");
   };
@@ -64,11 +69,14 @@ const TodoScreen = () => {
       {todoArray.length === 0 && <Fallback />}
 
       {/* task view */}
-      <FlatList
-        data={todoArray}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
+      <View style={styles.flatListContainer}>
+        <FlatList
+          data={todoArray}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
     </View>
   );
 };
@@ -88,5 +96,9 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontFamily: "open-sans-bold",
+  },
+  flatListContainer: {
+    height: Dimensions.get("window").height - 210,
+    borderRadius: 15,
   },
 });
