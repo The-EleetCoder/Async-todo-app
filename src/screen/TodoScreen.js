@@ -1,9 +1,34 @@
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import { StyleSheet, Text, View, TextInput, FlatList } from "react-native";
 import React, { useState } from "react";
 import Button from "../components/Button";
+import TaskView from "../components/TaskView";
 
 const TodoScreen = () => {
   const [todoText, setTodoText] = useState("");
+
+  const renderItem = ({ item }) => {
+    return <TaskView text={item.text} />;
+  };
+
+  // will remove this later
+  const dummyText = [
+    {
+      id: 1,
+      text: "Read a book 1",
+    },
+    {
+      id: 2,
+      text: "Read a book 2",
+    },
+    {
+      id: 3,
+      text: "Read a book 3",
+    },
+    {
+      id: 4,
+      text: "Read a book 4",
+    },
+  ];
 
   return (
     <View>
@@ -19,6 +44,11 @@ const TodoScreen = () => {
       <Button>ADD</Button>
 
       {/* task view */}
+      <FlatList
+        data={dummyText}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      />
     </View>
   );
 };
@@ -34,5 +64,9 @@ const styles = StyleSheet.create({
     height: 45,
     borderRadius: 7,
     padding: 15,
+  },
+  text: {
+    color: "white",
+    fontFamily: "open-sans-bold",
   },
 });
