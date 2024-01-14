@@ -6,8 +6,18 @@ import TaskView from "../components/TaskView";
 const TodoScreen = () => {
   const [todoText, setTodoText] = useState("");
 
+  const updateHandler = () => {};
+
+  const deleteHandler = () => {};
+
   const renderItem = ({ item }) => {
-    return <TaskView text={item.text} />;
+    return (
+      <TaskView
+        text={item.text}
+        updateHandler={updateHandler}
+        deleteHandler={deleteHandler}
+      />
+    );
   };
 
   // will remove this later
