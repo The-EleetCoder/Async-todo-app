@@ -1,22 +1,55 @@
 import { StyleSheet, View, TextInput, FlatList, Alert } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../components/Button";
 import TaskView from "../components/TaskView";
 import Fallback from "../components/Fallback";
 import { Dimensions } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const TodoScreen = () => {
   const [todoText, setTodoText] = useState("");
   const [todoArray, setTodoArray] = useState([]);
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateId, setUpdateId] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Load data from AsyncStorage when component mounts
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const storedTodoArray = await AsyncStorage.getItem("todoArray");
+        if (storedTodoArray !== null) {
+          setTodoArray(JSON.parse(storedTodoArray));
+        }
+      } catch (error) {
+        console.error("Error loading data from AsyncStorage:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Save data to AsyncStorage whenever todoArray is updated
+  useEffect(() => {
+    const saveData = async () => {
+      try {
+        await AsyncStorage.setItem("todoArray", JSON.stringify(todoArray));
+      } catch (error) {
+        console.error("Error saving data to AsyncStorage:", error);
+      }
+    };
+
+    saveData();
+  }, [todoArray]);
 
   // CREATE
   const addHandler = () => {
     if (todoText === "") {
-      Alert.alert("Note","Please enter a task!");
+      Alert.alert("Note", "Please enter a task!");
       return;
-    };
+    }
     setTodoArray([...todoArray, { id: Date.now().toString(), text: todoText }]);
     setTodoText("");
   };
@@ -66,7 +99,7 @@ const TodoScreen = () => {
       </Button>
 
       {/* Fallback */}
-      {todoArray.length === 0 && <Fallback />}
+      {!isLoading && todoArray.length === 0 && <Fallback />}
 
       {/* task view */}
       <View style={styles.flatListContainer}>
@@ -98,6 +131,6 @@ const styles = StyleSheet.create({
     fontFamily: "open-sans-bold",
   },
   flatListContainer: {
-    height: Dimensions.get("window").height - 210
+    height: Dimensions.get("window").height - 210,
   },
 });
