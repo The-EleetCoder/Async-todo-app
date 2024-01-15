@@ -12,7 +12,6 @@
 <div style={display: "flex"}>
   <img src="https://github.com/The-EleetCoder/Async-todo-app/blob/main/appPictures/IMG-20240115-WA0003.jpg" alt="project-screenshot" width="300" height="700/">
   <img src="https://github.com/The-EleetCoder/Async-todo-app/blob/main/appPictures/IMG-20240115-WA0001.jpg" alt="project-screenshot" width="300" height="700/">
-  <img src="https://github.com/The-EleetCoder/Async-todo-app/blob/main/appPictures/IMG-20240115-WA0004.jpg" alt="project-screenshot" width="300" height="700/">
 </div>
 
   
@@ -30,7 +29,6 @@ Here're some of the project's best features:
 
 ```
 https://drive.google.com/file/d/1M3soK3I0HxKH916Eg0BQk9_BcqFPAkZN/view?usp=sharing
-
 ```
 
   
