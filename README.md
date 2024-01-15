@@ -44,4 +44,6 @@ Technologies used in the project:
 
 <h2>💖Like my work?</h2>
 
-Please give it a star if you liked it :)
+```
+Please give it a star⭐ if you liked it :)
+```
