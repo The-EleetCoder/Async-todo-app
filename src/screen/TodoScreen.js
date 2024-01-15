@@ -1,5 +1,12 @@
-import { StyleSheet, View, TextInput, FlatList, Alert, Keyboard } from "react-native";
-import React, { useEffect, useState, useRef} from "react";
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  FlatList,
+  Alert,
+  Keyboard,
+} from "react-native";
+import React, { useEffect, useState, useRef } from "react";
 import Button from "../components/Button";
 import TaskView from "../components/TaskView";
 import Fallback from "../components/Fallback";

@@ -25,6 +25,6 @@ const styles = StyleSheet.create({
     fontFamily: "open-sans-bold",
     fontSize: 26,
     marginTop: 25,
-    color: "#397ad0"
+    color: "#397ad0",
   },
 });
