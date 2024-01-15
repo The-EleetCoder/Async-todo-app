@@ -26,7 +26,7 @@ export default function App() {
   return (
     <SafeAreaView>
       <View>
-        <StatusBar style="auto" />
+        <StatusBar style="dark" />
         <TodoScreen />
       </View>
     </SafeAreaView>
