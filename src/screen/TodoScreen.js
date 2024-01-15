@@ -1,5 +1,5 @@
-import { StyleSheet, View, TextInput, FlatList, Alert } from "react-native";
-import React, { useEffect, useState } from "react";
+import { StyleSheet, View, TextInput, FlatList, Alert, Keyboard } from "react-native";
+import React, { useEffect, useState, useRef} from "react";
 import Button from "../components/Button";
 import TaskView from "../components/TaskView";
 import Fallback from "../components/Fallback";
@@ -7,6 +7,7 @@ import { Dimensions } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const TodoScreen = () => {
+  const textInputRef = useRef(null);
   const [todoText, setTodoText] = useState("");
   const [todoArray, setTodoArray] = useState([]);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -52,6 +53,7 @@ const TodoScreen = () => {
     }
     setTodoArray([...todoArray, { id: Date.now().toString(), text: todoText }]);
     setTodoText("");
+    Keyboard.dismiss();
   };
 
   // UPDATE & SAVE
@@ -60,11 +62,13 @@ const TodoScreen = () => {
     setTodoArray([...filteredArray, { id: updateId, text: todoText }]);
     setTodoText("");
     setIsUpdating(false);
+    Keyboard.dismiss();
   };
   const updateHandler = (item) => {
     setIsUpdating(true);
     setUpdateId(item.id);
     setTodoText(item.text);
+    textInputRef.current.focus();
   };
 
   // DELETE
@@ -91,6 +95,7 @@ const TodoScreen = () => {
         placeholder="Add a task"
         onChangeText={(text) => setTodoText(text)}
         value={todoText}
+        ref={textInputRef}
       />
 
       {/* button */}
